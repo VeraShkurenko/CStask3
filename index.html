@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Exchange</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: #0f172a;
+            color: #facc15;
+        }
+        
+        .neon-box {
+            border: 2px solid #facc15;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0px 0px 15px #facc15;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        table {
+            width: 250px;
+            border-collapse: collapse;
+        }
+        
+        td {
+            padding: 15px;
+            font-size: 18px;
+            border-bottom: 2px dashed #facc15;
+        }
+        
+        tr:hover td {
+            background: rgba(250, 204, 21, 0.2);
+            cursor: pointer;
+        }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="neon-box">
+        <h2>💰 Курс Валют 💰</h2>
+        <table>
+            <tr>
+                <td>1$</td>
+                <td class="usd">...</td>
+            </tr>
+            <tr>
+                <td>1€</td>
+                <td class="eur">...</td>
+            </tr>
+        </table>
+    </div>
+    
+    <script>
+        let usd = document.querySelector(".usd");
+        let eur = document.querySelector(".eur");
+        const secret = '53df75e34a089f807aa4d123';
+        const cur = ['usd', 'eur'];
+        
+        fetch(`https://v6.exchangerate-api.com/v6/${secret}/latest/${cur[0]}`)
+            .then(response => response.json())
+            .then(data => {
+                usd.textContent = data.conversion_rates.UAH + "₴";
+            });
+        
+        fetch(`https://v6.exchangerate-api.com/v6/${secret}/latest/${cur[1]}`)
+            .then(response => response.json())
+            .then(data => {
+                eur.textContent = data.conversion_rates.UAH + "₴";
+            });
+    </script>
+</body>
+</html>
